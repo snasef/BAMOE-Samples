@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dmn:definitions xmlns:dmn="http://www.omg.org/spec/DMN/20180521/MODEL/" xmlns="https://kiegroup.org/dmn/_82875842-9EF1-472C-8EEB-234C7D49660C" xmlns:feel="http://www.omg.org/spec/DMN/20180521/FEEL/" xmlns:kie="http://www.drools.org/kie/dmn/1.2" xmlns:dmndi="http://www.omg.org/spec/DMN/20180521/DMNDI/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="_58589EC0-A4E0-45F7-B6CB-685E499464B0" name="TicketPrice" typeLanguage="http://www.omg.org/spec/DMN/20180521/FEEL/" namespace="https://kiegroup.org/dmn/_82875842-9EF1-472C-8EEB-234C7D49660C">
   <dmn:extensionElements/>
+  <dmn:itemDefinition id="_9D3DBC44-6207-41E6-B524-DD0D1D86E780" name="Credit_Score_Rating" isCollection="false">
+    <dmn:typeRef>string</dmn:typeRef>
+    <dmn:allowedValues kie:constraintType="enumeration" id="_3299EE20-7DD8-404B-98D7-F45B286E7469">
+      <dmn:text>null</dmn:text>
+    </dmn:allowedValues>
+  </dmn:itemDefinition>
   <dmn:inputData id="_A63819FA-49BB-463A-8571-96821FAD00DD" name="Pre-requested Product">
     <dmn:extensionElements/>
     <dmn:variable id="_06D18A65-152B-474E-9D72-AB2C5128E119" name="Pre-requested Product"/>
@@ -56,10 +62,30 @@
   </dmn:inputData>
   <dmn:decision id="_6870E575-1F4B-4C35-A59A-8A1B2D33B586" name="Credit Score Rating">
     <dmn:extensionElements/>
-    <dmn:variable id="_0CF07B67-7556-4C5F-9BBD-32C1F55A0994" name="Credit Score Rating"/>
+    <dmn:variable id="_0CF07B67-7556-4C5F-9BBD-32C1F55A0994" name="Credit Score Rating" typeRef="Credit_Score_Rating"/>
     <dmn:informationRequirement id="_A0ABFB9A-70FE-4E35-8F5B-0C8323DB51DD">
       <dmn:requiredInput href="#_50B2ED63-8CF4-46B5-847C-6766BDD6869B"/>
     </dmn:informationRequirement>
+    <dmn:decisionTable id="_E678BA66-C385-4556-9C42-37BD2EB01433" hitPolicy="UNIQUE" preferredOrientation="Rule-as-Row">
+      <dmn:input id="_77933C64-72D6-4ED5-8317-C39B264DEF60">
+        <dmn:inputExpression id="_9450EB6B-521D-4D96-B34D-FD7301EA2055" typeRef="number">
+          <dmn:text>Credit Score</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:output id="_90D25720-6F55-4265-853A-C7C2EA75CB16"/>
+      <dmn:annotation name="Description"/>
+      <dmn:rule id="_EC88AA60-1FAE-4651-A2CE-61D52B33A65D">
+        <dmn:inputEntry id="_0A3DFD31-1BB3-4D8F-BA3E-9A43A96C204A">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="_C641D674-6475-424C-B63A-47BEDF486A42">
+          <dmn:text/>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text/>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
   </dmn:decision>
   <dmn:decision id="_996499AE-6870-4AD0-885B-9D040138CEEF" name="Back End Rating">
     <dmn:extensionElements/>
@@ -134,6 +160,12 @@
           <kie:ComponentWidths dmnElementRef="_4D3EC328-4D1B-41BE-B175-76E971E15D00"/>
           <kie:ComponentWidths dmnElementRef="_5BF1740F-908F-4654-B1F7-EDB50FEFC848"/>
           <kie:ComponentWidths dmnElementRef="_340ACE29-548D-417B-8FDB-7FA0BA85233F"/>
+          <kie:ComponentWidths dmnElementRef="_E678BA66-C385-4556-9C42-37BD2EB01433">
+            <kie:width>50</kie:width>
+            <kie:width>195</kie:width>
+            <kie:width>277</kie:width>
+            <kie:width>467</kie:width>
+          </kie:ComponentWidths>
           <kie:ComponentWidths dmnElementRef="_B0835B79-2FF9-4019-B8F7-9B802E4186EF"/>
           <kie:ComponentWidths dmnElementRef="_0F308F30-DE88-4B94-BA00-87D24BFDA563"/>
           <kie:ComponentWidths dmnElementRef="_B91EFFC9-C8D8-4D93-AA0A-06211196E6E7"/>
@@ -279,6 +311,10 @@
         <di:waypoint x="130" y="371"/>
         <di:waypoint x="517" y="243"/>
       </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dmnedge-drg-_C3BAB081-DAD1-46D9-9B6B-1B2D3DEDC071" dmnElementRef="_C3BAB081-DAD1-46D9-9B6B-1B2D3DEDC071">
+        <di:waypoint x="972" y="379"/>
+        <di:waypoint x="567" y="218"/>
+      </dmndi:DMNEdge>
       <dmndi:DMNEdge id="dmnedge-drg-_593F9BB5-484B-4F2C-A969-FBE7C401317C" dmnElementRef="_593F9BB5-484B-4F2C-A969-FBE7C401317C">
         <di:waypoint x="303" y="396"/>
         <di:waypoint x="517" y="243"/>
@@ -286,10 +322,6 @@
       <dmndi:DMNEdge id="dmnedge-drg-_1DE536A2-7267-4327-86C8-C073DC1BEFDF" dmnElementRef="_1DE536A2-7267-4327-86C8-C073DC1BEFDF">
         <di:waypoint x="517" y="404"/>
         <di:waypoint x="517" y="243"/>
-      </dmndi:DMNEdge>
-      <dmndi:DMNEdge id="dmnedge-drg-_C3BAB081-DAD1-46D9-9B6B-1B2D3DEDC071" dmnElementRef="_C3BAB081-DAD1-46D9-9B6B-1B2D3DEDC071">
-        <di:waypoint x="972" y="379"/>
-        <di:waypoint x="567" y="218"/>
       </dmndi:DMNEdge>
       <dmndi:DMNEdge id="dmnedge-drg-_701CCBC7-23CE-432B-881E-4D558844272E-AUTO-SOURCE-AUTO-TARGET" dmnElementRef="_701CCBC7-23CE-432B-881E-4D558844272E">
         <di:waypoint x="517" y="509"/>
@@ -327,13 +359,13 @@
         <di:waypoint x="970" y="218"/>
         <di:waypoint x="744" y="113"/>
       </dmndi:DMNEdge>
-      <dmndi:DMNEdge id="dmnedge-drg-_5705002C-818B-447A-B637-8B5B134E6B73-AUTO-SOURCE-AUTO-TARGET" dmnElementRef="_5705002C-818B-447A-B637-8B5B134E6B73">
-        <di:waypoint x="567" y="218"/>
-        <di:waypoint x="695" y="541"/>
+      <dmndi:DMNEdge id="dmnedge-drg-_5705002C-818B-447A-B637-8B5B134E6B73" dmnElementRef="_5705002C-818B-447A-B637-8B5B134E6B73">
+        <di:waypoint x="517" y="218"/>
+        <di:waypoint x="745" y="541"/>
       </dmndi:DMNEdge>
-      <dmndi:DMNEdge id="dmnedge-drg-_90E901D4-6CA5-443C-A889-34DED216654A-AUTO-SOURCE-AUTO-TARGET" dmnElementRef="_90E901D4-6CA5-443C-A889-34DED216654A">
-        <di:waypoint x="1020" y="218"/>
-        <di:waypoint x="923" y="541"/>
+      <dmndi:DMNEdge id="dmnedge-drg-_90E901D4-6CA5-443C-A889-34DED216654A" dmnElementRef="_90E901D4-6CA5-443C-A889-34DED216654A">
+        <di:waypoint x="970" y="218"/>
+        <di:waypoint x="973" y="541"/>
       </dmndi:DMNEdge>
     </dmndi:DMNDiagram>
     <dmndi:DMNDiagram id="_A192A11F-89D2-4D4C-9AA5-75335C1D5178" name="new-diagram">
